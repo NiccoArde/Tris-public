@@ -4,6 +4,7 @@
  */
 package testisng;
 
+import java.awt.Desktop;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,85 +15,6 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 
-/*
-░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░ 
-░░░▒▓███████████████████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓███████████████████▒░░░░  
-░░░▒▓████████████████▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓███████████████▓░░░░░
-░░░▓▓█████████████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓████████████▓░░░░░░
-░░░▓█████████████▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓██████████▓░░░░░░
-░░░▒███████████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓█████████▓▒░░░░
-░░░░▒█████████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓████████▒░░░░
-░░░░░▓██████▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓███████▓░░░░
-░░░░░▒█████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██████▒░░░░
-░░░░▒▓█████▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█████▓▒░░░
-░░░░▓█████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓████▒░░░
-░░░░░████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓███▒░░░
-░░░░░▓██▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▓███▓░░░
-░░░░░▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓██████████████▓▓▓▓▒▒▒▒▓███▒░░
-░░░░░▓█▓▓▓▓▓▓███████████████▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓██████████████████████▓▓▓▓██▓░░░
-░░░░░██▓▓███████████████████████▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓██████████████████████▓█▓██▓░░░
-░░░░▒█████████████████████████████▓▓▓▓▓▓▒▒▒▒▒▒▓▓▓▓▓▓▓▓████████████████████████████▒░░
-░░░░▒█████████████████████████████▓▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▓▓███████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████▒░░
-░░░░▓██████████▓███████████████████▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▓█████▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▓▓████▒░░
-░░░░██████▓▓▓▓▓▓▓▓▓▓▓▓▓███████████▓▓▓▓▒▒▒▒▒▒▒▒▒▓▓▓▓████▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓██▒░░
-░░░░▓████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓▓▓▓▒▒▒▒▒▒▒▒▒▓▓▓▓██████▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓██▒░░
-░░░░▓███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓▓▓▒▒▒▒▒▒▒▒▒▓▓▓▓██████▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓█░░░
-░░░░▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓▓████████▓▓▓▒▒▒▒▒▒▒▒▒▒▓▓███▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▓▒▒▒▓▓▓▓▓▓█░░░
-░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓██████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░
-░░░░▒▓▓▓▓▓▓▓▓▓██████████████████▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓█████████████████████▓▓▓▓▒▒▒▓░░░
-░░░░▒▓▓████████████████████████▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓████████████████████▓▓▒▒▒▓░░░
-░░░░░▓▓███████████████▓▓████▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓░░░
-░░░░░▓▓▓▓████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓██████▓▓▓▓▓▓▒▒▒▒▒▒▒▒░░░
-░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░
-░░░░▒▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▒▒▒▒▒░░░
-░░░░▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░▒▒▒▒▒░░░
-░░░░▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░▒▒▒▒▒░░
-░░░░▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▒▒▒▓▓▓▓▓▒▒▒▒▒▒▒░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▒▒▒░░
-░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░
-░░░▒▓▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░
-░░░▒▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
-░░░▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▓▓▓▓▓█▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒░
-░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████▓▓▓▒▒▒▒▓▓▓▓█▓▓▓▓▒▒▒▒▒▒▒▒▒▒░
-░░░▓▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓█████████████▓▓▓▓▓▓▓▓▓▓▓██████████▓▓▒▒▒▒▒▒▓▓▓▓██▓▓▓▒▒▒▒▒▒▒▒▒░
-░░░▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓█████████████▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓███▓▓▓▒▒▒▒▒▒▒░
-░░░▒▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▓▓▓▓▓███▓▓▓▒▒▒▒▓░░
-░░░▒▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████████████▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓███▓▓▓▒▒▓▒░░
-░░░░▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████████▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓███▓▓▓▓▓▒░░
-░░░░▒▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓██▓▓▓▓▓▒░░
-░░░░░▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒░░░
-░░░░░▒▓▓▓▓▓▓▓▓▓▓████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░
-░░░░░░▓▓▓▓▓▓▓▓▓▓▓██████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░░
-░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓███████▓▓▓██████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▒▓▓█▓▓▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░
-░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▒▒▓▓▓▓▓▓▓▓▒▒▓▓▓▓▓▓▒▒▒▒▓▒░▒▒▒░░▒▒▒▓▓▓▒▒▓▓▓▒▓▓▓▓▓▓▓▓▓▓░░░░░░
-░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▓▒▒░░░░▒▒▒░░░░░▒░░░▒▒░░▒▒▒▒▒▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▒░░░░░░
-░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒░░░░░░░░░░░░░▒░░░▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▒░░░░░░░
-░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓█▓▓▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▒░░░░░░░░
-░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▒▓▒▒▒▒▒░▒▒░░░░░░▒▓▒▒▒▒▒▒▒▓▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▓░░░░░░░░░
-░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▒▒▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░
-░░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░░░░░░░░
-░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░░░░░░░░░
-░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▒░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▓▒▒▒▒▒▒▒▒▓▓▓▓▓▓▒░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▓▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▒░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▒░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▒▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▒▒▒▓▓▓▓▒▒░░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░▓▓▓▓▓████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓▓▓▓▓▓▓▓▒▒▒▒▒▓▓▓▓▒▒▒░░░░░░░░░░
-░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
-
-
-
-
-
-
-*/
 public class intefaccia extends JFrame {
 
     private Clip clip;
@@ -103,6 +25,12 @@ public class intefaccia extends JFrame {
         initComponents();
         canzonebase();
         startTimer();
+        Pareggioxxl.setVisible(false);
+        schermo3.setVisible(false);
+        schermo2.setVisible(false);
+        Pareggiobot.setVisible(false);
+        schermo.setVisible(false);
+        Pareggio1v1.setVisible(false);
         Vittoria3.setVisible(false);
         vitinidietrobot.setVisible(false);
         riprova.setVisible(false);
@@ -129,7 +57,7 @@ public class intefaccia extends JFrame {
         Vittoria2.setVisible(false);
         Vitindietro3.setVisible(false);
         giocatore2.setVisible(false);
-        
+
         Settings.setVisible(false);
         AudioOff.setVisible(false);
 
@@ -187,11 +115,7 @@ ___  ___          _
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            // Crea un elemento GUI per impedire al thread daemon del Clip
-            // di terminare alla fine del main()
-            SwingUtilities.invokeLater(() -> {
-                //JOptionPane.showMessageDialog(null, "Chiudi per uscire!");
-            });
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,11 +139,6 @@ ___  ___          _
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            // Crea un elemento GUI per impedire al thread daemon del Clip
-            // di terminare alla fine del main()
-            SwingUtilities.invokeLater(() -> {
-                //JOptionPane.showMessageDialog(null, "Chiudi per uscire!");
-            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -243,11 +162,6 @@ ___  ___          _
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            // Crea un elemento GUI per impedire al thread daemon del Clip
-            // di terminare alla fine del main()
-            SwingUtilities.invokeLater(() -> {
-                //JOptionPane.showMessageDialog(null, "Chiudi per uscire!");
-            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -270,12 +184,6 @@ ___  ___          _
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-            // Crea un elemento GUI per impedire al thread daemon del Clip
-            // di terminare alla fine del main()
-            SwingUtilities.invokeLater(() -> {
-                //JOptionPane.showMessageDialog(null, "Chiudi per uscire!");
-            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -308,11 +216,11 @@ ___  ___          _
         timer.setRepeats(false); // Imposta il timer per non ripetersi
         timer.start(); // Avvia il timer
     }
-    
+
     // Funzione per cambiare l'immagine del pulsante
     private void changeButtonImage(JButton button) {
-        // Cambia l'immagine del pulsante in base alle tue esigenze
-        // Ad esempio, se vuoi cambiare da iconX a iconZero
+        // Cambia l'immagine del pulsante
+        // Ad esempio,da iconX a iconZero
         if (button.getIcon().equals(iconX)) {
             button.setIcon(iconXD);
         } else {
@@ -322,7 +230,7 @@ ___  ___          _
 
 // Inizializza il timer per cambiare l'immagine del pulsante dopo un certo periodo di tempo
     private void initButtonTimer(JButton button) {
-        // Imposta un timer che eseguirà l'azione dopo un certo periodo di tempo (ad esempio, 3 secondi)
+        // Imposta un timer che eseguirà l'azione dopo un certo periodo di tempo
         buttonTimer = new Timer(650, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -362,6 +270,8 @@ ___  ___          _
     ImageIcon iconCambioO = new ImageIcon("TurnoO.png");
     ImageIcon giocatoreX = new ImageIcon("VgiocatoreX.png");
     ImageIcon giocatoreO = new ImageIcon("VgiocatoreO.png");
+    ImageIcon pareggio = new ImageIcon("pareggiotris.gif");
+
     private int po = 0;
     private int px = 0;
 
@@ -456,44 +366,70 @@ _| |\ V / _| |_
         Otto.setIcon(icon);
         Nove.setIcon(icon);
     }
-    
+
     public void controllo() {
         if (checkForWin()) {
             if (currentPlayer.equals("o")) {
-                px++;
-                //JOptionPane.showMessageDialog(rootPane, "ha vinto", "Partita terminata ", HEIGHT, iconX);
-                SfondoVittoria.setVisible(true);
-                stopSong();
-                canzonevittoria();
-                Vitindietro1.setVisible(true);
-                giocatore.setIcon(giocatoreX);
-                giocatore.setVisible(true);
-                PunteggioX.setText("" + px);
-                resetBoard();
+                Timer timer = new Timer(800, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        px++;
+                        SfondoVittoria.setVisible(true);
+                        stopSong();
+                        canzonevittoria();
+                        Vitindietro1.setVisible(true);
+                        giocatore.setIcon(giocatoreX);
+                        giocatore.setVisible(true);
+                        PunteggioX.setText("" + px);
+                        resetBoard();
+                        inizializzaMatrice();
+                    }
+                });
+                // Programma l'aggiornamento dell'immagine per la mossa del bot 
+                timer.setRepeats(false);
+                timer.start(); // Fai la mossa del computer
             } else {
-                po++;
-                //JOptionPane.showMessageDialog(rootPane, "ha vinto", "Partita terminata ", HEIGHT, iconZero);
-                SfondoVittoria.setVisible(true);
-                stopSong();
-                canzonevittoria();
-                Vitindietro1.setVisible(true);
-                giocatore.setIcon(giocatoreO);
-                giocatore.setVisible(true);
-                Punteggio0.setText("" + po);
-                resetBoard();
+                Timer timer = new Timer(800, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        po++;
+                        SfondoVittoria.setVisible(true);
+                        stopSong();
+                        canzonevittoria();
+                        Vitindietro1.setVisible(true);
+                        giocatore.setIcon(giocatoreO);
+                        giocatore.setVisible(true);
+                        Punteggio0.setText("" + po);
+                        resetBoard();
+                        inizializzaMatrice();
+                    }
+                });
+                // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                timer.setRepeats(false);
+                timer.start(); // Fai la mossa del computer
             }
 
         } else {
             if (isBoardFull()) {
-                JOptionPane.showMessageDialog(rootPane, "PAREGGIO", "Partita finita", HEIGHT);
+                schermo.setVisible(true);
+                Pareggio1v1.setVisible(true);
+                Turno.setVisible(false);
+                Timer timer = new Timer(2000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        inizializzaMatrice();
+                        resetBoard();
+                        schermo.setVisible(false);
+                        Pareggio1v1.setVisible(false);
+                        Turno.setVisible(true);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
         }
-        if (checkForWin() || isBoardFull()) {
-            resetBoard();
-            inizializzaMatrice();
-        }
     }
-    
+
     public void inserisciIcona(JButton b, int n, int m) {
         if (tris[n][m] == 0) {
             if (currentPlayer.equals("x")) {
@@ -519,8 +455,7 @@ ______       _
 | |_/ / (_) | |_ 
 \____/ \___/ \__|
                                 
-    */
-
+     */
     private void resetBoardBot() {
         ImageIcon icon = new ImageIcon("miniSfondo.jpg");
         CinqueBot.setIcon(icon);
@@ -532,8 +467,6 @@ ______       _
         QuattroBot.setIcon(icon);
         UnoBot.setIcon(icon);
         TreBot.setIcon(icon);
-        //stopSong();
-        //canzonebase();
     }
 
     int difficolta = 0;
@@ -542,8 +475,6 @@ ______       _
         int bestScore = Integer.MIN_VALUE;
         int bestMoveX = -1;
         int bestMoveY = -1;
-        //final int finalBestMoveX = bestMoveX; // Declare bestMoveX as final
-        //final int finalBestMoveY = bestMoveY;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -579,16 +510,27 @@ ______       _
             updateButton(bestMoveX, bestMoveY); // Aggiorna il pulsante grafico
         }
         if (checkForWin()) {
-            Sconfitta.setVisible(true);
-            riprova.setVisible(true);
-            stopSong();
-            canzonesconfitta();
-            po++;
-            resetBoardBot();
-            inizializzaMatrice();
-            PunteggioO1.setText("" + po);
+
+            Timer timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Sconfitta.setVisible(true);
+                    riprova.setVisible(true);
+                    stopSong();
+                    canzonesconfitta();
+                    po++;
+                    resetBoardBot();
+                    inizializzaMatrice();
+                    PunteggioO1.setText("" + po);
+                }
+            });
+            // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+            timer.setRepeats(false);
+            timer.start(); // Fai la mossa del computer
+
             return; // Termina la funzione se il computer ha vinto
         }
+        // Termina la funzione se il computer ha vinto
 
     }
 
@@ -691,23 +633,42 @@ ______       _
         inizializzaMatrice();
         PunteggioX1.setText("" + px);
     }
-    
+
     public void inserisciIconaBot(JButton b, int n, int m) {
         if (tris[n][m] == 0) {
             b.setIcon(iconX);
             tris[n][m] = 1;
             startButtonTimer(b);
             if (checkForWin()) {
-                Vittoria3.setVisible(true);
-                vitinidietrobot.setVisible(true);
-                stopSong();
-                canzonevittoria();
-                nuovoTurno();
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Vittoria3.setVisible(true);
+                        vitinidietrobot.setVisible(true);
+                        stopSong();
+                        canzonevittoria();
+                        nuovoTurno();
+                    }
+                });
+                // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                timer.setRepeats(false);
+                timer.start(); // Fai la mossa del computer
+
             } else {
                 if (isBoardFull()) {
-                    JOptionPane.showMessageDialog(rootPane, "Pareggio!", "Partita terminata", JOptionPane.INFORMATION_MESSAGE);
-                    resetBoardBot();
-                    inizializzaMatrice();
+                    schermo2.setVisible(true);
+                    Pareggiobot.setVisible(true);
+                    Timer timer = new Timer(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            inizializzaMatrice();
+                            resetBoardBot();
+                            schermo2.setVisible(false);
+                            Pareggiobot.setVisible(false);
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
                 } else {
                     Timer timer = new Timer(500, new ActionListener() {
                         @Override
@@ -723,7 +684,7 @@ ______       _
         }
     }
 
-/*
+    /*
 ___   ___ ___   ___  __      
 \  \ /  / \  \ /  / |  |     
  \  V  /   \  V  /  |  |     
@@ -731,7 +692,7 @@ ___   ___ ___   ___  __
  /  .  \   /  .  \  |  `----.
 /__/ \__\ /__/ \__\ |_______|
                              
-*/
+     */
     int[][] trisXL = new int[5][5];
     Random randomXL = new Random();
     ImageIcon iconZeroDXL = new ImageIcon("Oridotta.png");
@@ -869,39 +830,68 @@ ___   ___ ___   ___  __
 
     }
 
-    
-
-    
-
     public void controlloXL() {
         if (checkForWinXL()) {
             if (currentPlayer.equals("o")) {
-                px++;
-                Vittoria2.setVisible(true);
-                stopSong();
-                canzonevittoria();
-                Vitindietro3.setVisible(true);
-                giocatore2.setIcon(giocatoreX);
-                giocatore2.setVisible(true);
-                PunteggioO2.setText("" + px);
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        px++;
+                        Vittoria2.setVisible(true);
+                        stopSong();
+                        canzonevittoria();
+                        Vitindietro3.setVisible(true);
+                        giocatore2.setIcon(giocatoreX);
+                        giocatore2.setVisible(true);
+                        PunteggioO2.setText("" + px);
+                        resetBoardXL();
+                        inizializzaMatriceXL();
+                    }
+                });
+                // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                timer.setRepeats(false);
+                timer.start();
+
             } else {
-                po++;
-                Vittoria2.setVisible(true);
-                stopSong();
-                canzonevittoria();
-                Vitindietro3.setVisible(true);
-                giocatore2.setIcon(giocatoreO);
-                giocatore2.setVisible(true);
-                PunteggioX2.setText("" + po);
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        po++;
+                        Vittoria2.setVisible(true);
+                        stopSong();
+                        canzonevittoria();
+                        Vitindietro3.setVisible(true);
+                        giocatore2.setIcon(giocatoreO);
+                        giocatore2.setVisible(true);
+                        PunteggioX2.setText("" + po);
+                        resetBoardXL();
+                        inizializzaMatriceXL();
+                    }
+                });
+                // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                timer.setRepeats(false);
+                timer.start(); // Fai la mossa del computer
+
             }
         } else {
             if (isBoardFullXL()) {
-                JOptionPane.showMessageDialog(rootPane, "PAREGGIO", "Partita finita", HEIGHT);
+                schermo3.setVisible(true);
+                Pareggioxxl.setVisible(true);
+                //Turno.setVisible(false);
+                Timer timer = new Timer(5000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        inizializzaMatriceXL();
+                        resetBoardXL();
+                        schermo3.setVisible(false);
+                        Pareggioxxl.setVisible(false);
+                        //Turno.setVisible(true);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+                //JOptionPane.showMessageDialog(rootPane, "PAREGGIO", "Partita finita", HEIGHT);
             }
-        }
-        if (checkForWinXL() || isBoardFullXL()) {
-            resetBoardXL();
-            inizializzaMatriceXL();
         }
     }
 
@@ -921,8 +911,6 @@ ___   ___ ___   ___  __
             startButtonTimerXL(b);
         }
     }
-  
-
 
     /*
  _____ _                   
@@ -963,7 +951,7 @@ ___   ___ ___   ___  __
 
         System.out.println(currentPlayer);
     }
-    
+
     ImageIcon icon = new ImageIcon("miniSfondo.jpg");
     int mossa = 0;
     int[] mossaX = {0, 0, 0};
@@ -1020,7 +1008,7 @@ ___   ___ ___   ___  __
     }
 
     private Timer buttonTimer;
-    
+
     public void spostaIcona(JButton b, int x, int y) {
         if (b.getIcon() == selezionato && mossa == 1) {
             togliSelezionato();
@@ -1041,27 +1029,44 @@ ___   ___ ___   ___  __
             boolean temp = muoviPedine();
             if (checkForWin() && temp == true) {
                 if (currentPlayer.equals("o")) {
-                    px++;
-                    Vittoria1.setVisible(true);
-                    stopSong();
-                    canzonevittoria();
-                    Vitindietro2.setVisible(true);
-                    giocatore1.setIcon(giocatoreX);
-                    giocatore1.setVisible(true);
-                    PunteggioX3.setText("" + px);
+                    Timer timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            px++;
+                            Vittoria1.setVisible(true);
+                            stopSong();
+                            canzonevittoria();
+                            Vitindietro2.setVisible(true);
+                            giocatore1.setIcon(giocatoreX);
+                            giocatore1.setVisible(true);
+                            PunteggioX3.setText("" + px);
+                            resetBoardChess();
+                            inizializzaMatriceChess();
+                        }
+                    });
+                    // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                    timer.setRepeats(false);
+                    timer.start();
                 } else {
-                    po++;
-                    Vittoria1.setVisible(true);
-                    stopSong();
-                    canzonevittoria();
-                    Vitindietro2.setVisible(true);
-                    giocatore1.setIcon(giocatoreO);
-                    giocatore1.setVisible(true);
-                    PunteggioO3.setText("" + po);
+                    Timer timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            po++;
+                            Vittoria1.setVisible(true);
+                            stopSong();
+                            canzonevittoria();
+                            Vitindietro2.setVisible(true);
+                            giocatore1.setIcon(giocatoreO);
+                            giocatore1.setVisible(true);
+                            PunteggioO3.setText("" + po);
+                            resetBoardChess();
+                            inizializzaMatriceChess();
+                        }
+                    });
+                    // Programma l'aggiornamento dell'immagine per la mossa del bot dopo un secondo
+                    timer.setRepeats(false);
+                    timer.start();
                 }
-
-                resetBoardChess();
-                inizializzaMatriceChess();
             }
         } else if (("x".equals(currentPlayer) && (b.getIcon() == iconZeroD || b.getIcon() == iconOBordo)) || ("o".equals(currentPlayer) && (b.getIcon() == iconXD || b.getIcon() == iconXBordo))) {
             stopSong();
@@ -1168,6 +1173,7 @@ ___   ___ ___   ___  __
             return false;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1178,6 +1184,8 @@ ___   ___ ___   ___  __
     private void initComponents() {
 
         TrisBot = new javax.swing.JPanel();
+        Pareggiobot = new javax.swing.JLabel();
+        schermo2 = new javax.swing.JLabel();
         Vittoria3 = new javax.swing.JLabel();
         vitinidietrobot = new javax.swing.JButton();
         Sconfitta = new javax.swing.JLabel();
@@ -1197,23 +1205,38 @@ ___   ___ ___   ___  __
         PunteggioO1 = new javax.swing.JLabel();
         Sfondo1 = new javax.swing.JLabel();
         TutorialTris2 = new javax.swing.JButton();
-        Home = new javax.swing.JPanel();
-        sfondo1 = new javax.swing.JLabel();
-        sfondo2 = new javax.swing.JLabel();
-        Invio = new javax.swing.JButton();
         Settings = new javax.swing.JPanel();
         SfondoSettings = new javax.swing.JLabel();
+        manuale = new javax.swing.JButton();
         Chiudi = new javax.swing.JButton();
         AudioOn = new javax.swing.JButton();
         AudioOff = new javax.swing.JButton();
         Manuale = new javax.swing.JButton();
-        Dashboard = new javax.swing.JPanel();
-        SfondoDashboard = new javax.swing.JLabel();
-        Chess = new javax.swing.JButton();
-        Classic = new javax.swing.JButton();
-        XXL = new javax.swing.JButton();
-        impostazioni = new javax.swing.JButton();
+        Tris1v1 = new javax.swing.JPanel();
+        Pareggio1v1 = new javax.swing.JLabel();
+        giocatore = new javax.swing.JLabel();
+        SfondoVittoria = new javax.swing.JLabel();
+        schermo = new javax.swing.JLabel();
+        Vitindietro1 = new javax.swing.JButton();
+        Tre = new javax.swing.JButton();
+        Quattro = new javax.swing.JButton();
+        Due = new javax.swing.JButton();
+        Sette = new javax.swing.JButton();
+        Uno = new javax.swing.JButton();
+        Otto = new javax.swing.JButton();
+        Nove = new javax.swing.JButton();
+        Sei = new javax.swing.JButton();
+        Cinque = new javax.swing.JButton();
+        PunteggioX = new javax.swing.JLabel();
+        Punteggio0 = new javax.swing.JLabel();
+        Turno = new javax.swing.JLabel();
+        Sfondo = new javax.swing.JLabel();
+        NuovaPartita = new javax.swing.JButton();
+        BackToHome = new javax.swing.JButton();
+        TutorialTris1 = new javax.swing.JButton();
         TrisXXL = new javax.swing.JPanel();
+        Pareggioxxl = new javax.swing.JLabel();
+        schermo3 = new javax.swing.JLabel();
         giocatore2 = new javax.swing.JLabel();
         Vittoria2 = new javax.swing.JLabel();
         Vitindietro3 = new javax.swing.JButton();
@@ -1249,26 +1272,16 @@ ___   ___ ___   ___  __
         SfondoXXL = new javax.swing.JLabel();
         BackXXL = new javax.swing.JButton();
         TutorialXXL = new javax.swing.JButton();
-        Tris1v1 = new javax.swing.JPanel();
-        giocatore = new javax.swing.JLabel();
-        SfondoVittoria = new javax.swing.JLabel();
-        Vitindietro1 = new javax.swing.JButton();
-        Tre = new javax.swing.JButton();
-        Quattro = new javax.swing.JButton();
-        Due = new javax.swing.JButton();
-        Sette = new javax.swing.JButton();
-        Uno = new javax.swing.JButton();
-        Otto = new javax.swing.JButton();
-        Nove = new javax.swing.JButton();
-        Sei = new javax.swing.JButton();
-        Cinque = new javax.swing.JButton();
-        PunteggioX = new javax.swing.JLabel();
-        Punteggio0 = new javax.swing.JLabel();
-        Turno = new javax.swing.JLabel();
-        Sfondo = new javax.swing.JLabel();
-        NuovaPartita = new javax.swing.JButton();
-        BackToHome = new javax.swing.JButton();
-        TutorialTris1 = new javax.swing.JButton();
+        Home = new javax.swing.JPanel();
+        sfondo1 = new javax.swing.JLabel();
+        sfondo2 = new javax.swing.JLabel();
+        Invio = new javax.swing.JButton();
+        Dashboard = new javax.swing.JPanel();
+        SfondoDashboard = new javax.swing.JLabel();
+        Chess = new javax.swing.JButton();
+        Classic = new javax.swing.JButton();
+        XXL = new javax.swing.JButton();
+        impostazioni = new javax.swing.JButton();
         TrisChess = new javax.swing.JPanel();
         giocatore1 = new javax.swing.JLabel();
         Vittoria1 = new javax.swing.JLabel();
@@ -1314,12 +1327,20 @@ ___   ___ ___   ___  __
         Back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(550, 273));
         setMaximumSize(new java.awt.Dimension(759, 420));
         setMinimumSize(new java.awt.Dimension(759, 420));
         setSize(new java.awt.Dimension(759, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TrisBot.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Pareggiobot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/pipi-ezgif.com-gif-maker.gif"))); // NOI18N
+        Pareggiobot.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TrisBot.add(Pareggiobot, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 140, 690, 110));
+
+        schermo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/schermino.png"))); // NOI18N
+        TrisBot.add(schermo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, 760, 260));
 
         Vittoria3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/TICTACTOE-ezgif.com-overlay.gif"))); // NOI18N
         TrisBot.add(Vittoria3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
@@ -1475,33 +1496,18 @@ ___   ___ ___   ___  __
 
         getContentPane().add(TrisBot, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
 
-        Home.setMinimumSize(new java.awt.Dimension(759, 420));
-        Home.setPreferredSize(new java.awt.Dimension(759, 420));
-        Home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        sfondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/ezgif.com-overlay (1).gif"))); // NOI18N
-        sfondo1.setAlignmentY(0.0F);
-        sfondo1.setOpaque(true);
-        Home.add(sfondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
-
-        sfondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/RealHome.png"))); // NOI18N
-        Home.add(sfondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, -1));
-
-        Invio.setText("jButton1");
-        Invio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InvioActionPerformed(evt);
-            }
-        });
-        Home.add(Invio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
-
-        getContentPane().add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         Settings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         SfondoSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/settings.png"))); // NOI18N
         SfondoSettings.setText("jLabel2");
         Settings.add(SfondoSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 297, 180));
+
+        manuale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualeActionPerformed(evt);
+            }
+        });
+        Settings.add(manuale, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 90, 90));
 
         Chiudi.setText("jButton1");
         Chiudi.addActionListener(new java.awt.event.ActionListener() {
@@ -1528,48 +1534,187 @@ ___   ___ ___   ___  __
         Settings.add(AudioOff, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 60, 50));
 
         Manuale.setText("jButton1");
+        Manuale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManualeActionPerformed(evt);
+            }
+        });
         Settings.add(Manuale, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 60, 60));
 
         getContentPane().add(Settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 120, -1, -1));
 
-        Dashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Tris1v1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SfondoDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Group 53.png"))); // NOI18N
-        Dashboard.add(SfondoDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 430));
+        Pareggio1v1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Pareggio1v1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/pipi-ezgif.com-gif-maker.gif"))); // NOI18N
+        Pareggio1v1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Tris1v1.add(Pareggio1v1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 600, 110));
 
-        Chess.addActionListener(new java.awt.event.ActionListener() {
+        giocatore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/giocatoreO.png"))); // NOI18N
+        Tris1v1.add(giocatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 160, 40));
+
+        SfondoVittoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/TICTACTOE-ezgif.com-overlay.gif"))); // NOI18N
+        Tris1v1.add(SfondoVittoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
+
+        schermo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/schermino.png"))); // NOI18N
+        Tris1v1.add(schermo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 260));
+
+        Vitindietro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Group 17.png"))); // NOI18N
+        Vitindietro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChessActionPerformed(evt);
+                Vitindietro1ActionPerformed(evt);
             }
         });
-        Dashboard.add(Chess, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 220, 140));
+        Tris1v1.add(Vitindietro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 160, 40));
 
-        Classic.addActionListener(new java.awt.event.ActionListener() {
+        Tre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Tre.setBorderPainted(false);
+        Tre.setContentAreaFilled(false);
+        Tre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Tre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClassicActionPerformed(evt);
+                TreActionPerformed(evt);
             }
         });
-        Dashboard.add(Classic, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 210, 110));
+        Tris1v1.add(Tre, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 89, 60, 60));
 
-        XXL.addActionListener(new java.awt.event.ActionListener() {
+        Quattro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Quattro.setBorderPainted(false);
+        Quattro.setContentAreaFilled(false);
+        Quattro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Quattro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                XXLActionPerformed(evt);
+                QuattroActionPerformed(evt);
             }
         });
-        Dashboard.add(XXL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 210, 120));
+        Tris1v1.add(Quattro, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 169, 60, 60));
 
-        impostazioni.setText("jButton1");
-        impostazioni.addActionListener(new java.awt.event.ActionListener() {
+        Due.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Due.setBorderPainted(false);
+        Due.setContentAreaFilled(false);
+        Due.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Due.setMaximumSize(new java.awt.Dimension(60, 60));
+        Due.setPreferredSize(new java.awt.Dimension(60, 60));
+        Due.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                impostazioniActionPerformed(evt);
+                DueActionPerformed(evt);
             }
         });
-        Dashboard.add(impostazioni, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 10, 50, 60));
+        Tris1v1.add(Due, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 89, 60, 60));
 
-        getContentPane().add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
+        Sette.setBorderPainted(false);
+        Sette.setContentAreaFilled(false);
+        Sette.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Sette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SetteActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Sette, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 251, 60, 60));
+
+        Uno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Uno.setBorderPainted(false);
+        Uno.setContentAreaFilled(false);
+        Uno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Uno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UnoActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Uno, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 89, 60, 60));
+
+        Otto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Otto.setBorderPainted(false);
+        Otto.setContentAreaFilled(false);
+        Otto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Otto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OttoActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Otto, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 251, 60, 60));
+
+        Nove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Nove.setBorderPainted(false);
+        Nove.setContentAreaFilled(false);
+        Nove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Nove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoveActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Nove, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 251, 60, 60));
+
+        Sei.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Sei.setBorderPainted(false);
+        Sei.setContentAreaFilled(false);
+        Sei.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Sei.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeiActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Sei, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 169, 60, 60));
+
+        Cinque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
+        Cinque.setBorderPainted(false);
+        Cinque.setContentAreaFilled(false);
+        Cinque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Cinque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CinqueActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(Cinque, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 169, 60, 60));
+
+        PunteggioX.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PunteggioX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Tris1v1.add(PunteggioX, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 218, 60, 20));
+
+        Punteggio0.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Punteggio0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Tris1v1.add(Punteggio0, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 218, 60, 20));
+
+        Turno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Turno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/pareggiotris.gif"))); // NOI18N
+        Tris1v1.add(Turno, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 270, 50));
+
+        Sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/sfondoBase.png"))); // NOI18N
+        Tris1v1.add(Sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 427));
+
+        NuovaPartita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuovaPartitaActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(NuovaPartita, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 170, 40));
+
+        BackToHome.setText("jButton46");
+        BackToHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackToHomeActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(BackToHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 70));
+
+        TutorialTris1.setText("jButton60");
+        TutorialTris1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TutorialTris1ActionPerformed(evt);
+            }
+        });
+        Tris1v1.add(TutorialTris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(681, 20, 50, 50));
+
+        getContentPane().add(Tris1v1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
 
         TrisXXL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TrisXXL.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Pareggioxxl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/pipi-ezgif.com-gif-maker.gif"))); // NOI18N
+        TrisXXL.add(Pareggioxxl, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 130, 780, 140));
+
+        schermo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/schermino.png"))); // NOI18N
+        TrisXXL.add(schermo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 270));
 
         giocatore2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/giocatoreO.png"))); // NOI18N
         TrisXXL.add(giocatore2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 160, 40));
@@ -1916,158 +2061,63 @@ ___   ___ ___   ___  __
 
         getContentPane().add(TrisXXL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
 
-        Tris1v1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Home.setMinimumSize(new java.awt.Dimension(759, 420));
+        Home.setPreferredSize(new java.awt.Dimension(759, 420));
+        Home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        giocatore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/giocatoreO.png"))); // NOI18N
-        Tris1v1.add(giocatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 160, 40));
+        sfondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/ezgif.com-overlay (1).gif"))); // NOI18N
+        sfondo1.setAlignmentY(0.0F);
+        sfondo1.setOpaque(true);
+        Home.add(sfondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
 
-        SfondoVittoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/TICTACTOE-ezgif.com-overlay.gif"))); // NOI18N
-        Tris1v1.add(SfondoVittoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
+        sfondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/RealHome.png"))); // NOI18N
+        Home.add(sfondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, -1));
 
-        Vitindietro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Group 17.png"))); // NOI18N
-        Vitindietro1.addActionListener(new java.awt.event.ActionListener() {
+        Invio.setText("jButton1");
+        Invio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Vitindietro1ActionPerformed(evt);
+                InvioActionPerformed(evt);
             }
         });
-        Tris1v1.add(Vitindietro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 160, 40));
+        Home.add(Invio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
 
-        Tre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Tre.setBorderPainted(false);
-        Tre.setContentAreaFilled(false);
-        Tre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Tre.addActionListener(new java.awt.event.ActionListener() {
+        getContentPane().add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        Dashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        SfondoDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Group 53.png"))); // NOI18N
+        Dashboard.add(SfondoDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 430));
+
+        Chess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TreActionPerformed(evt);
+                ChessActionPerformed(evt);
             }
         });
-        Tris1v1.add(Tre, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 89, 60, 60));
+        Dashboard.add(Chess, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 220, 140));
 
-        Quattro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Quattro.setBorderPainted(false);
-        Quattro.setContentAreaFilled(false);
-        Quattro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Quattro.addActionListener(new java.awt.event.ActionListener() {
+        Classic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QuattroActionPerformed(evt);
+                ClassicActionPerformed(evt);
             }
         });
-        Tris1v1.add(Quattro, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 169, 60, 60));
+        Dashboard.add(Classic, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 210, 110));
 
-        Due.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Due.setBorderPainted(false);
-        Due.setContentAreaFilled(false);
-        Due.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Due.setMaximumSize(new java.awt.Dimension(60, 60));
-        Due.setPreferredSize(new java.awt.Dimension(60, 60));
-        Due.addActionListener(new java.awt.event.ActionListener() {
+        XXL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DueActionPerformed(evt);
+                XXLActionPerformed(evt);
             }
         });
-        Tris1v1.add(Due, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 89, 60, 60));
+        Dashboard.add(XXL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 210, 120));
 
-        Sette.setBorderPainted(false);
-        Sette.setContentAreaFilled(false);
-        Sette.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Sette.addActionListener(new java.awt.event.ActionListener() {
+        impostazioni.setText("jButton1");
+        impostazioni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SetteActionPerformed(evt);
+                impostazioniActionPerformed(evt);
             }
         });
-        Tris1v1.add(Sette, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 251, 60, 60));
+        Dashboard.add(impostazioni, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 10, 50, 60));
 
-        Uno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Uno.setBorderPainted(false);
-        Uno.setContentAreaFilled(false);
-        Uno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Uno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UnoActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(Uno, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 89, 60, 60));
-
-        Otto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Otto.setBorderPainted(false);
-        Otto.setContentAreaFilled(false);
-        Otto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Otto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OttoActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(Otto, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 251, 60, 60));
-
-        Nove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Nove.setBorderPainted(false);
-        Nove.setContentAreaFilled(false);
-        Nove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Nove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoveActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(Nove, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 251, 60, 60));
-
-        Sei.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Sei.setBorderPainted(false);
-        Sei.setContentAreaFilled(false);
-        Sei.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Sei.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeiActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(Sei, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 169, 60, 60));
-
-        Cinque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/Xanimata-ezgif.com-resize.gif"))); // NOI18N
-        Cinque.setBorderPainted(false);
-        Cinque.setContentAreaFilled(false);
-        Cinque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Cinque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CinqueActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(Cinque, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 169, 60, 60));
-
-        PunteggioX.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        PunteggioX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Tris1v1.add(PunteggioX, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 218, 60, 20));
-
-        Punteggio0.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Punteggio0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Tris1v1.add(Punteggio0, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 218, 60, 20));
-        Tris1v1.add(Turno, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 110, 50));
-
-        Sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/testisng/sfondoBase.png"))); // NOI18N
-        Tris1v1.add(Sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 427));
-
-        NuovaPartita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuovaPartitaActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(NuovaPartita, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 150, 30));
-
-        BackToHome.setText("jButton46");
-        BackToHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BackToHomeActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(BackToHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 70));
-
-        TutorialTris1.setText("jButton60");
-        TutorialTris1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TutorialTris1ActionPerformed(evt);
-            }
-        });
-        Tris1v1.add(TutorialTris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(681, 20, 50, 50));
-
-        getContentPane().add(Tris1v1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 420));
+        getContentPane().add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
 
         TrisChess.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -3020,6 +3070,24 @@ ___   ___ ___   ___  __
         inizializzaMatrice();
     }//GEN-LAST:event_riprovaActionPerformed
 
+    private void manualeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualeActionPerformed
+        // TODO add your handling code here:
+        try {
+            File file = new File("tris.pdf"); // Sostituisci "percorso/al/tuo/file.pdf" con il percorso del tuo file PDF
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            } else {
+                System.out.println("Il file non esiste.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } // TODO add your handling code here:
+    }//GEN-LAST:event_manualeActionPerformed
+
+    private void ManualeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManualeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ManualeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3114,6 +3182,9 @@ ___   ___ ___   ___  __
     private javax.swing.JButton NuovaPartita;
     private javax.swing.JButton Otto;
     private javax.swing.JButton OttoBot;
+    private javax.swing.JLabel Pareggio1v1;
+    private javax.swing.JLabel Pareggiobot;
+    private javax.swing.JLabel Pareggioxxl;
     private javax.swing.JLabel Punteggio0;
     private javax.swing.JLabel PunteggioO1;
     private javax.swing.JLabel PunteggioO2;
@@ -3204,7 +3275,11 @@ ___   ___ ___   ___  __
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JButton manuale;
     private javax.swing.JButton riprova;
+    private javax.swing.JLabel schermo;
+    private javax.swing.JLabel schermo2;
+    private javax.swing.JLabel schermo3;
     private javax.swing.JLabel sfondo1;
     private javax.swing.JLabel sfondo2;
     private javax.swing.JLabel turnoXXL;
